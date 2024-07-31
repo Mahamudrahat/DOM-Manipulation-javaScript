@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Manipulation</title>
+    <style>
+        .fade-out{
+            transition: opacity 1s;
+            opacity: 0;
+            ;
+        }
+    </style>
+</head>
+
+<body>
+    <p id="p-text">This will be changed by Dom manipulation</p>
+
+    <button onclick="updateParagrahpText()">Update by On click</button>
+    <button id="text-update-button">Update by EventHandler</button>
+    <hr>
+
+    <div id="paragraph-container">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur,
+            consequatur deleniti animi recusandae aliquam rerum reprehenderit
+            repudiandae eaque quam unde dicta facilis ipsa architecto pariatur doloremque reiciendis! Quidem, qui
+            impedit?</p>
+        <p>Lorem ipsum dolor sit amet.</p>
+
+    </div>
+    <textarea id="paragrahp-textarea" name="" cols="60" rows="5"></textarea>
+    <br>
+    <button id="add-new-paragraphtext">Add New Paragraph</button>
+    <br>
+    <br>
+    <button id="delete-new-paragraphtext">Delete Paragraph</button>
+    <br>
+
+</body>
+
+<script>
+    function updateParagrahpText() {
+        let paraGraphText = document.getElementById('p-text');
+        paraGraphText.innerText = "After Update by Click function";
+        paraGraphText.style.color = "blue";
+        paraGraphText.style.fontSize = "40px";
+        paraGraphText.style.fontWeight = '900';
+    }
+
+    document.getElementById('text-update-button').addEventListener('click', function () {
+        let paraGraphText = document.getElementById('p-text');
+        paraGraphText.innerText = "After Update by Event Listener";
+        paraGraphText.style.color = "green";
+        paraGraphText.style.fontSize = "40px";
+        paraGraphText.style.fontWeight = '900';
+    })
+
+    document.getElementById('add-new-paragraphtext').addEventListener('click',function(){
+        let newParagraphText=document.getElementById('paragrahp-textarea').value;
+        let pgTag=document.createElement('p')
+        pgTag.innerHTML=newParagraphText;
+        document.getElementById('paragraph-container').appendChild(pgTag);
+    })
+    document.getElementById('delete-new-paragraphtext').addEventListener('click',function(){
+        let container=document.getElementById('paragraph-container');
+        let paragraph=container.getElementsByTagName('p');
+        if(paragraph.length==0){
+            alert("No Elements Left");
+        }
+        else{
+            let lastParagraph=paragraph[paragraph.length-1];
+            lastParagraph.classList.add('fade-out')
+            setTimeout(() => {
+                container.removeChild(lastParagraph);
+            }, 1000);
+            
+        }
+    })
+</script>
+
+</html>
